@@ -1,0 +1,16 @@
+apiVersion: getambassador.io/v2
+kind: FilterPolicy
+metadata:
+  name: {{ include "ambassador-jwt.fullname" . }}
+  namespace: {{ .Release.namespace }}
+  labels:
+    {{- include "ambassador-jwt.labels" . | nindent 4 }}
+spec:
+  rules:
+    - host: {{ .Release.Name }}.{{ .Values.dnsZone }}
+      path: /*
+      filters:
+        - name: {{ include "ambassador-jwt.fullname" . }}
+          arguments:
+            scopes:
+              - "{{ .Values.azure.clientID }}/mnaut"

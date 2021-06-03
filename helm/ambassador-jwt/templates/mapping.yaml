@@ -1,0 +1,11 @@
+apiVersion: getambassador.io/v2
+kind: Mapping
+metadata:
+  name: {{ include "ambassador-jwt.fullname" . }}
+  namespace: {{ .Release.namespace }}
+  labels:
+    {{- include "ambassador-jwt.labels" . | nindent 4 }}
+spec:
+  host: {{ .Release.Name }}.{{ .Values.dnsZone }}
+  prefix: /
+  service: {{ include "ambassador-jwt.fullname" . }}:{{ .Values.service.port }}

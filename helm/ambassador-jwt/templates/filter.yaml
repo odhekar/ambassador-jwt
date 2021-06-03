@@ -1,0 +1,19 @@
+apiVersion: getambassador.io/v2
+kind: Filter
+metadata:
+  name: {{ include "ambassador-jwt.fullname" . }}
+  namespace: {{ .Release.namespace }}
+  labels:
+    {{- include "ambassador-jwt.labels" . | nindent 4 }}
+spec:
+  OAuth2:
+    accessTokenJWTFilter:
+      name: jwt-{{ include "ambassador-jwt.fullname" . }}
+    grantType: AuthorizationCode
+    accessTokenValidation: jwt
+    allowMalformedAccessToken: false
+    authorizationURL: https://login.microsoftonline.com/{{ .Values.azure.tenantID }}/v2.0
+    clientID: {{ .Values.azure.clientID }}
+    secret: {{ .Values.azure.secret }}
+    protectedOrigins:
+    - origin: https://{{ .Release.Name }}.{{ .Values.dnsZone }}

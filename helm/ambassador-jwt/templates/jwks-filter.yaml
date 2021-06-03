@@ -1,0 +1,17 @@
+apiVersion: getambassador.io/v2
+kind: Filter
+metadata:
+  name: jwt-{{ include "ambassador-jwt.fullname" . }}
+  namespace: {{ .Release.namespace }}
+spec:
+  JWT:
+    jwksURI: https://login.microsoftonline.com/{{ .Values.azure.tenantID }}/discovery/v2.0/keys
+    leewayForIssuedAt: 60s
+    errorResponse:
+      headers:
+        - name: Content-Type
+          value: application/json
+    injectRequestHeaders:
+      - name: "X-Token-String"
+        value: "{{ "{{ .token.Raw }}" }}"
+
