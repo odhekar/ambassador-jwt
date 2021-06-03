@@ -1,5 +1,8 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="Application" type="Application" factoryName="Application">
+    <envs>
+      <env name="TENANTID" value="" />
+    </envs>
     <option name="MAIN_CLASS_NAME" value="com.odhekar.Application" />
     <module name="ambassador-jwt.main" />
     <method v="2">

@@ -12,6 +12,9 @@
     <root level="info">
         <appender-ref ref="STDOUT" />
     </root>
+    <logger name="io.micronaut.security" level="trace" additivity="false">
+        <appender-ref ref="STDOUT" />
+    </logger>
     <logger name="com.odhekar" level="trace" additivity="false">
         <appender-ref ref="STDOUT" />
     </logger>
