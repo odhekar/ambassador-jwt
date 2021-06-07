@@ -9,9 +9,6 @@ spec:
   OAuth2:
     accessTokenJWTFilter:
       name: jwt-{{ include "ambassador-jwt.fullname" . }}
-    grantType: AuthorizationCode
-    accessTokenValidation: jwt
-    allowMalformedAccessToken: false
     authorizationURL: https://login.microsoftonline.com/{{ .Values.azure.tenantID }}/v2.0
     clientID: {{ .Values.azure.clientID }}
     secret: {{ .Values.azure.secret }}

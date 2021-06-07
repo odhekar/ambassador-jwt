@@ -10,6 +10,11 @@ spec:
     - host: {{ .Release.Name }}.{{ .Values.dnsZone }}
       path: /*
       filters:
+        - name: jwt-{{ include "ambassador-jwt.fullname" . }}
+          ifRequestHeader:
+            name: "Authorization"
+          onAllow: break
+          onDeny: break
         - name: {{ include "ambassador-jwt.fullname" . }}
           arguments:
             scopes:
